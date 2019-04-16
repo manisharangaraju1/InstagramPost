@@ -1,6 +1,9 @@
 package com.androidcourse.manisha.instapost.Model;
 
 
+import java.util.List;
+import java.util.Set;
+
 public class Post {
     public Post(){
 
@@ -8,13 +11,22 @@ public class Post {
 
     String url;
     String description;
+    List<String> hashtags;
     User user;
 
-    public Post(String url, String description, User user) {
+    public Post(String url, String description,List<String> hashtags, User user) {
         this.url = url;
         this.description = description;
+        this.hashtags = hashtags;
         this.user = user;
+    }
 
+    public List<String> getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
     }
 
     public String getUrl() {

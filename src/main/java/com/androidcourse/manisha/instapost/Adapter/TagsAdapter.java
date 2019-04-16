@@ -14,68 +14,64 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androidcourse.manisha.instapost.Fragments.SelectedUserFragment;
-import com.androidcourse.manisha.instapost.Model.User;
+import com.androidcourse.manisha.instapost.Fragments.SelectedHashFragment;
 import com.androidcourse.manisha.instapost.R;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder>{
     private Context mContext;
-    private List<User> mUsers;
+    private List<String> mHashTags;
 
-    public UserAdapter(Context mContext, List<User> mUsers) {
+    public TagsAdapter(Context mContext, List<String> mHashTags) {
         this.mContext = mContext;
-        this.mUsers = mUsers;
+        this.mHashTags = mHashTags;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.hash_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        final User currentUser = mUsers.get(i);
-        viewHolder.userName.setText(currentUser.getName());
-        viewHolder.nickName.setText(currentUser.getNickName());
+        final String currentHash = mHashTags.get(i);
+        viewHolder.hashTag.setText("#"+currentHash);
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, currentUser.getName(), Toast.LENGTH_SHORT).show();
-                getUserDetails(currentUser);
+                Toast.makeText(mContext, currentHash, Toast.LENGTH_SHORT).show();
+                getHashDetails(currentHash);
             }
         });
     }
 
-    private void getUserDetails(User user) {
-        Bundle clickedUserDetails = new Bundle();
-        clickedUserDetails.putString("email", user.getEmail());
-        SelectedUserFragment selectedUserPosts = new SelectedUserFragment();
-        selectedUserPosts.setArguments(clickedUserDetails);
+    private void getHashDetails(String hashTag) {
+        Bundle clickedHashDetails = new Bundle();
+        clickedHashDetails.putString("hashTag", hashTag);
+        SelectedHashFragment selectedHashPosts = new SelectedHashFragment();
+        selectedHashPosts.setArguments(clickedHashDetails);
         FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, selectedUserPosts);
-        transaction.addToBackStack("user_posts");
+        transaction.replace(R.id.fragment_container, selectedHashPosts);
+        transaction.addToBackStack("hash_posts");
         transaction.commit();
     }
-
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mHashTags.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView userName;
-        public TextView nickName;
+        public TextView hashTag;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            userName = (TextView) itemView.findViewById(R.id.username);
-            nickName = (TextView) itemView.findViewById(R.id.nickname);
+            hashTag = (TextView) itemView.findViewById(R.id.hashtag);
             parentLayout = itemView.findViewById(R.id.parent_layout);
 
         }

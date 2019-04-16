@@ -34,7 +34,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder imageViewHolder, int i) {
         Post currentPost = mPosts.get(i);
-        imageViewHolder.textViewName.setText(currentPost.getDescription());
+        imageViewHolder.textViewNickName.setText(currentPost.getUser().getNickName());
+        imageViewHolder.textViewDescription.setText(currentPost.getDescription());
         Picasso.with(mContext)
                 .load(currentPost.getUrl())
                 .fit()
@@ -48,12 +49,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewName;
+        public TextView textViewDescription;
+        public TextView textViewNickName;
         public ImageView imageView;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.description_uploaded);
+            textViewNickName = itemView.findViewById(R.id.nickname_uploaded);
+            textViewDescription = itemView.findViewById(R.id.description_uploaded);
             imageView = itemView.findViewById(R.id.post_uploaded);
         }
     }

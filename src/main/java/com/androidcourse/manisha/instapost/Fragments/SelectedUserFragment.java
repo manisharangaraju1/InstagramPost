@@ -56,7 +56,7 @@ public class SelectedUserFragment extends Fragment {
         selectedUserView = inflater.inflate(R.layout.fragment_selected_user, container, false);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-             userEmail = bundle.getString("email","");
+            userEmail = bundle.getString("email","");
         }
         return selectedUserView;
     }

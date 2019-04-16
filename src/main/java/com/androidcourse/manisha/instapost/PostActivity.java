@@ -31,6 +31,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class PostActivity extends AppCompatActivity {
 
     Uri imageUri;
@@ -101,7 +106,10 @@ public class PostActivity extends AppCompatActivity {
 
                         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
                         DatabaseReference childRef = FirebaseDatabase.getInstance().getReference("Users");
+                        final DatabaseReference hashRef = FirebaseDatabase.getInstance().getReference("HashTags");
                         final String uid = reference.push().getKey();
+                        final List<String> hashTags = getHashTags(description.getText().toString());
+
 
                         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -110,17 +118,35 @@ public class PostActivity extends AppCompatActivity {
                                     for(DataSnapshot users : dataSnapshot.getChildren()){
                                         User user = users.getValue(User.class);
                                         if(FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(user.getEmail())){
-                                            Post post = new Post(myUrl,description.getText().toString(),user);
+                                            final Post post = new Post(myUrl,description.getText().toString(),hashTags,user);
                                             reference.child(uid).setValue(post);
+
+                                            hashRef.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                           for(String tag : hashTags){
+                                                                    if(!dataSnapshot.hasChild(tag)){
+                                                                        hashRef.child(tag).setValue(tag);
+                                                                    }
+                                                                }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
                                         }
                                     }
                                 }
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 Toast.makeText(getApplicationContext(),"Please try again",Toast.LENGTH_SHORT).show();
                             }
                         });
+
                         startActivity(new Intent(PostActivity.this,ProfileActivity.class));
                         finish();
                     }else{
@@ -149,5 +175,15 @@ public class PostActivity extends AppCompatActivity {
         startActivity(new Intent(PostActivity.this,ProfileActivity.class));
         finish();
         }
+    }
+    public List<String> getHashTags(String description){
+
+        List<String> tags = new ArrayList<>();
+        Pattern MY_PATTERN = Pattern.compile("#(\\S+)");
+        Matcher mat = MY_PATTERN.matcher(description);
+        while (mat.find()) {
+            tags.add(mat.group(1));
+        }
+        return tags;
     }
 }

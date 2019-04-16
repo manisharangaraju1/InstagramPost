@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.androidcourse.manisha.instapost.Adapter.TagsAdapter;
+import com.androidcourse.manisha.instapost.Adapter.PostAdapter;
+import com.androidcourse.manisha.instapost.Model.Post;
 import com.androidcourse.manisha.instapost.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,32 +23,38 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class HashTagsFragment extends Fragment {
-    private View searchTagsView;
+public class SelectedHashFragment extends Fragment {
+    private View selectedHashView;
     private RecyclerView mRecyclerView;
-    private TagsAdapter mAdapter;
+    private PostAdapter mAdapter;
 
     private DatabaseReference mDatabaseRef;
-    private List<String> mHashTags;
+    private List<Post> mPosts;
 
+    String tag="";
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mRecyclerView = (RecyclerView) searchTagsView.findViewById(R.id.searchTags_recycler_view);
+        mRecyclerView = (RecyclerView) selectedHashView.findViewById(R.id.selectedPostsDisplay);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("HashTags");
-        mHashTags = new ArrayList<>();
-        mAdapter = new TagsAdapter(getActivity(),mHashTags);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
+        mPosts = new ArrayList<>();
+        mAdapter = new PostAdapter(getContext(),mPosts);
         mRecyclerView.setAdapter(mAdapter);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        searchTagsView = inflater.inflate(R.layout.fragment_hash_tags, container, false);
-        return searchTagsView;
+        selectedHashView = inflater.inflate(R.layout.fragment_selected_hash, container, false);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            tag = bundle.getString("hashTag","");
+        }
+
+        return selectedHashView;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -57,8 +64,10 @@ public class HashTagsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                        String tag = String.valueOf(postSnapshot.getValue());
-                        mHashTags.add(tag);
+                        Post post = postSnapshot.getValue(Post.class);
+                        if(post.getHashtags().contains(tag)){
+                            mPosts.add(post);
+                        }
                     }
                 }
                 mAdapter.notifyDataSetChanged();
@@ -69,4 +78,6 @@ public class HashTagsFragment extends Fragment {
             }
         });
     }
+
+
 }
