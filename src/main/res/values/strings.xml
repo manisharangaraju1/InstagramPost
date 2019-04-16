@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">InstaPost</string>
+    <string name="title">InstaPost</string>
+    <string name="login">Login</string>
+    <string name="signup">SignUp Here!</string>
+    <string name="signupTitle">Please Enter you details!</string>
+    <string name="name">Name</string>
+    <string name="nickname">NickName</string>
+    <string name="email">abc@example.com</string>
+    <string name="password">password</string>
+    <string name="input_error_name">Please enter your Name</string>
+    <string name="input_error_nick_name">Please enter your Nick Name</string>
+    <string name="input_error_email">Please enter your email address</string>
+    <string name="input_error_email_invalid">Please enter a valid email address</string>
+    <string name="input_error_password">Please enter your password</string>
+    <string name="input_error_password_length">Password Length should be atleast 6 characters</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_search">Search Users</string>
+    <string name="title_add">Post</string>
+    <string name="title_home">Home</string>
+    <string name="title_hash">Search #Tags</string>
+
+
+
+</resources>

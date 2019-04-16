@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "409776429603",
+    "firebase_url": "https://instapost-bcb99.firebaseio.com",
+    "project_id": "instapost-bcb99",
+    "storage_bucket": "instapost-bcb99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409776429603:android:4c090ae81649bcee",
+        "android_client_info": {
+          "package_name": "com.androidcourse.manisha.instapost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409776429603-vck6vbvfesauqb72g78kdve8907h80tv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androidcourse.manisha.instapost",
+            "certificate_hash": "89f60cf76c6465ddc53136d3839c2da67fdc6bea"
+          }
+        },
+        {
+          "client_id": "409776429603-bu31ea5fm2oepvv6q68uc620t61u6sg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAZjPQpEFsqqjjOjhdaQOfhSc-v2AbSrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409776429603-bu31ea5fm2oepvv6q68uc620t61u6sg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
