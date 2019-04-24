@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidcourse.manisha.instapost.Fragments.SelectedHashFragment;
 import com.androidcourse.manisha.instapost.R;
@@ -42,7 +41,6 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder>{
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, currentHash, Toast.LENGTH_SHORT).show();
                 getHashDetails(currentHash);
             }
         });
@@ -56,7 +54,6 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder>{
         FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, selectedHashPosts);
-        transaction.addToBackStack("hash_posts");
         transaction.commit();
     }
     @Override

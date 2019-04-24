@@ -65,6 +65,7 @@ public class SelectedHashFragment extends Fragment {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         Post post = postSnapshot.getValue(Post.class);
+
                         if(post.getHashtags().contains(tag)){
                             mPosts.add(post);
                         }

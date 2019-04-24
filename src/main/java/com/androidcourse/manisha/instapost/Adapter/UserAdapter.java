@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidcourse.manisha.instapost.Fragments.SelectedUserFragment;
 import com.androidcourse.manisha.instapost.Model.User;
@@ -44,7 +43,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, currentUser.getName(), Toast.LENGTH_SHORT).show();
                 getUserDetails(currentUser);
             }
         });
@@ -58,7 +56,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         FragmentManager fragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, selectedUserPosts);
-        transaction.addToBackStack("user_posts");
         transaction.commit();
     }
 

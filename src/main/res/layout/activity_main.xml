@@ -33,5 +33,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/signup"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/signup"/>
 </LinearLayout>

@@ -182,7 +182,11 @@ public class PostActivity extends AppCompatActivity {
         Pattern MY_PATTERN = Pattern.compile("#(\\S+)");
         Matcher mat = MY_PATTERN.matcher(description);
         while (mat.find()) {
-            tags.add(mat.group(1));
+            String tag = mat.group(1);
+            if(tag.indexOf('#') != -1) {
+                tag = tag.substring(0,tag.indexOf('#'));
+            }
+            tags.add(tag);
         }
         return tags;
     }
